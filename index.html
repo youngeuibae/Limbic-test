@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9360638495551473"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="그릿 테스트를 통해 당신의 끈기를 확인해보세요.">
@@ -11,14 +9,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="theme-color" content="#007BFF">
     <link rel="preload" href="style.css" as="style">
+    <link rel="stylesheet" href="style.css">
     <link rel="dns-prefetch" href="//youngeuibae.github.io">
     <meta name="author" content="Youngeui Bae">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://youngeuibae.github.io/grit-test" />
-    <meta property="og:title" content="그릿 테스트 해보기" />
-    <meta property="og:description" content="그릿 테스트를 통해 당신의 끈기를 확인해보세요.!" />
-    <meta property="og:url" content="https://youngeuibae.github.io/grit-test" />
-    <title>그릿 테스트</title>
+    <link rel="canonical" href="https://youngeuibae.github.io/grit-test">
+    <meta property="og:title" content="그릿 테스트 해보기">
+    <meta property="og:description" content="그릿 테스트를 통해 당신의 끈기를 확인해보세요.!">
+    <meta property="og:url" content="https://youngeuibae.github.io/grit-test">
+    <title>림빅 테스트</title>
     <style>
         /* 간단한 CSS 스타일 */
          /* 슬라이더의 너비를 늘립니다. */
@@ -110,12 +109,15 @@
     </style>
 </head>
 <body>
-    <h1>그릿 테스트</h1>
-    <form id="grit-test-form">
+    <h1>림빅 테스트</h1>
+    <form id="limbic-test-form">
         <!-- 질문들이 여기에 동적으로 생성됩니다. -->
     </form>
     <button onclick="calculateGritScore()">제출</button>
+    <canvas id="limbicChart" width="400" height="400"></canvas>
+
     <!-- 커스텀 모달 -->
+
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span id="close">&times;</span>
@@ -123,6 +125,7 @@
             <button id="share-button" style="display: none;" onclick="copyToClipboard()">공유하기</button>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         var questions = [
             '당신의 직업과 직장에서 가장 중요하게 생각하는 것은...',
@@ -145,7 +148,30 @@
             ['패션에 대한 관심 없음', '편안함', '비전통적이고 창의적', '클래식 모던'],
             ['웰니스와 마사지', '고급 와인 시음', '편안한 향토 음악의 밤', '리버 래프팅']
         ];
-        var form = document.getElementById('grit-test-form');
+        var form = document.getElementById('limbic-test-form');
+
+        var ctx = document.getElementById('limbicChart').getContext('2d');
+        var limbicChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Stimulus', 'Dominance', 'Balance'],
+                datasets: [{
+                    label: 'TestMan\'s Limbic',
+                    data: [20, 10, 30], // 여기에 각 축의 실제 점수를 입력합니다.
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scale: {
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
 
         questions.forEach(function(question, index) {
         var div = document.createElement('div');
@@ -262,5 +288,7 @@
             }
         }
     </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9360638495551473"
+     crossorigin="anonymous"></script>
 </body>
 </html>
