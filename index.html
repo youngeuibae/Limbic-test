@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9360638495551473"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="그릿 테스트를 통해 당신의 끈기를 확인해보세요.">
+    <meta name="keywords" content="그릿 테스트, 끈기 테스트, 그릿 측정도구, 그릿 측정, 그릿 척도, 그릿 점수">
+    <meta name="language" content="ko">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="theme-color" content="#007BFF">
+    <link rel="preload" href="style.css" as="style">
+    <link rel="dns-prefetch" href="//youngeuibae.github.io">
+    <meta name="author" content="Youngeui Bae">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://youngeuibae.github.io/grit-test" />
+    <meta property="og:title" content="그릿 테스트 해보기" />
+    <meta property="og:description" content="그릿 테스트를 통해 당신의 끈기를 확인해보세요.!" />
+    <meta property="og:url" content="https://youngeuibae.github.io/grit-test" />
+    <title>그릿 테스트</title>
+    <style>
+        /* 간단한 CSS 스타일 */
+         /* 슬라이더의 너비를 늘립니다. */
+        input[type="range"] {
+            width: 80%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .question {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 5px;
+            position: relative; /* 레이블을 위한 상대 위치 설정 */
+        }
+        .slider-container {
+            position: relative; /* 레이블 컨테이너를 위한 상대 위치 설정 */
+            margin: 40px 0; /* 슬라이더와 레이블 간격 조정 */
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between; /* 숫자 레이블을 슬라이더 양 끝과 중간에 배치 */
+            position: absolute;
+            width: 100%; /* 슬라이더와 동일한 너비 */
+            top: -24px; /* 슬라이더 위로 위치 조정 */
+        }
+        .slider-labels span {
+            font-size: 14px; /* 레이블 폰트 크기 조정 */
+            color: #555; /* 레이블 색상 변경 */
+            font-weight: bold; /* 폰트 굵기 변경 */
+        }
+        .slider-container input[type=range] {
+            width: 100%; /* 슬라이더 너비를 부모에 맞춤 */
+            margin-top: 20px; /* 레이블과 슬라이더 사이 간격 조정 */
+        }
+        .end-labels {
+            display: flex;
+            justify-content: space-between; /* 양 끝 레이블을 슬라이더 양 끝에 배치 */
+            margin-top: 4px; /* 슬라이더 아래 간격 조정 */
+        }
+        .end-labels span {
+            font-size: 14px; /* 레이블 폰트 크기 조정 */
+            color: #333; /* 레이블 색상 변경 */
+        }
+        .score-display {
+            display: none; /* 선택한 숫자를 숨김 */
+        }
+        button {
+            background-color: #007BFF; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        /* 커스텀 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>그릿 테스트</h1>
+    <form id="grit-test-form">
+        <!-- 질문들이 여기에 동적으로 생성됩니다. -->
+    </form>
+    <button onclick="calculateGritScore()">제출</button>
+    <!-- 커스텀 모달 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span id="close">&times;</span>
+            <p id="modal-text"></p>
+            <button id="share-button" style="display: none;" onclick="copyToClipboard()">공유하기</button>
+        </div>
+    </div>
+    <script>
+        var questions = [
+            '당신의 직업과 직장에서 가장 중요하게 생각하는 것은...',
+            '로또에 당첨되어 새 집을 지을 때 가장 중요하게 생각하는 것은...',
+            '다음 중에서 가장 자신의 삶에 가깝다고 느끼는 단어 그룹을 선택하세요.',
+            '중요한 결정을 내릴 때, 당신은 주로 어떻게 하나요?',
+            '선박 사고로 친구와 함께 무인도에 갇혔을 때, 친구가 가져야 할 가장 중요한 특성은 무엇인가요?',
+            '다음 중 우선적으로 추구할 정치적 목표는 무엇인가요?',
+            '당신이 선호하는 패션 스타일은 어떤 것인가요?',
+            '휴가 중인 호텔에서 다양한 여가 활동이 제공됩니다. 어떤 것을 선택하시겠습니까?'
+        ];
+    
+        var options = [
+            ['안정적인 직장을 가지는 것', '책임감을 가지고 경력을 쌓는 것', '재미와 다양성을 가지고 새로운 경험을 쌓는 것', '친절한 동료와 함께 일하는 것'],
+            ['혁신적인 건축으로 일반적인 것과 차별화되는 것', '편안하고 아늑한 것', '대표적인 것', '가치가 있고 합리적으로 지어진 것'],
+            ['조화, 안정, 배려, 평온', '즐거움, 즉흥성, 호기심, 모험', '근면, 안정, 신뢰성, 질서', '성과, 성공, 목표 지향성, 효율성'],
+            ['즉흥적으로', '내 감정에 따라', '상황 분석 후 즉시', '조심스럽게, 오랜 시간 고민하며'],
+            ['행동력과 인내심', '친절함과 따뜻함', '신뢰성과 안정성', '좋은 기분, 위트, 유머'],
+            ['우리 경제의 성과와 경쟁력을 더욱 강화하는 것', '안전과 질서를 보장하는 것', '빈곤한 사람들과 사회적으로 소외된 사람들을 돕는 것', '사람들의 자유와 자기 실현을 가능하게 하는 것 (출신, 종교, 피부색, 성적 성향 등에 상관없이)'],
+            ['패션에 대한 관심 없음', '편안함', '비전통적이고 창의적', '클래식 모던'],
+            ['웰니스와 마사지', '고급 와인 시음', '편안한 향토 음악의 밤', '리버 래프팅']
+        ];
+        var form = document.getElementById('grit-test-form');
+
+        questions.forEach(function(question, index) {
+        var div = document.createElement('div');
+        div.className = 'question';
+        var labels = options[index];
+        div.innerHTML = `
+        <h2>질문 ${index + 1}</h2>
+            <p>${question}</p>
+            <div class="slider-container">
+                <div class="slider-labels">
+                    ${labels.map(label => `<span>${label}</span>`).join('')}
+                </div>
+                <input type="range" min="1" max="5" value="3" id="question${index + 1}" oninput="updateScore(${index + 1}, this.value)">
+                <div class="end-labels">
+                    <span>전혀 그렇지 않다</span>
+                    <span>매우 그렇다</span>
+                </div>
+            </div>
+            <span id="score${index + 1}" class="score-display">3</span>
+        `;
+        form.appendChild(div);
+    })
+
+        function updateScore(questionNumber, value) {
+            // 질문 번호에 따라 점수 척도를 반전시킵니다.
+            var score = questionNumber % 2 === 0 ? 6 - value : value;
+            // 점수를 해당하는 score-display 요소에 표시합니다.
+            var scoreDisplay = document.getElementById('score' + questionNumber);
+            scoreDisplay.textContent = score;
+        }
+
+        function calculateGritScore() {
+            var totalScore = 0;
+            for (var i = 0; i < questions.length; i++) {
+                var scoreElement = document.querySelector(`input[id="question${i + 1}"]`);
+                if (!scoreElement) {
+                    alert('모든 질문에 답해주세요.');
+                    return;
+                }
+                var score = (i + 1) % 2 === 0 ? scoreElement.value : 6 - scoreElement.value;
+                if (isNaN(score)) {
+                    alert('점수는 숫자여야 합니다.');
+                    return;
+                }
+                totalScore += parseInt(score);
+            }
+            var gritScore = totalScore / questions.length;
+            var percentile = getPercentile(gritScore);
+            showModal('와우! 당신의 그릿 점수는 ' + gritScore + '입니다. 이는 상위 ' + percentile + '%에 해당합니다. 계속 화이팅해서 성공하세요!', true);
+            return {gritScore: gritScore, percentile: percentile};
+        }
+
+        function getPercentile(gritScore) {
+            var percentiles = [
+                {score: 2.5, percentile: 90},
+                {score: 3.0, percentile: 80},
+                {score: 3.3, percentile: 70},
+                {score: 3.5, percentile: 60},
+                {score: 3.8, percentile: 50},
+                {score: 3.9, percentile: 40},
+                {score: 4.1, percentile: 30},
+                {score: 4.3, percentile: 20},
+                {score: 4.5, percentile: 10},
+                {score: 4.7, percentile: 5},
+                {score: 4.9, percentile: 1}
+            ];
+            for (var i = percentiles.length - 1; i >= 0; i--) {
+                if (gritScore >= percentiles[i].score) {
+                    return percentiles[i].percentile;
+                }
+            }
+            return 0;
+        }
+
+        function showModal(text, showShareButton) {
+            var modal = document.getElementById("myModal");
+            var span = document.getElementById("close");
+            var shareButton = document.getElementById("share-button");
+            var modalText = document.getElementById("modal-text");
+            modalText.innerHTML = text; // innerHTML을 사용하여 HTML을 삽입합니다.
+            modal.style.display = "block";
+            shareButton.style.display = showShareButton ? "block" : "none";
+            span.onclick = function() {
+                modal.style.display = "none";
+            };
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        };
+
+        function copyToClipboard() {
+            var dummy = document.createElement('input');
+            var text = window.location.href + '?gritScore=' + calculateGritScore().gritScore + '&percentile=' + calculateGritScore().percentile;
+
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            alert('링크가 클립보드에 복사되었습니다!');
+        }
+
+        window.onload = function() {
+            var params = new URLSearchParams(window.location.search);
+            var gritScore = params.get('gritScore');
+            var percentile = params.get('percentile');
+            if (gritScore && percentile) {
+                var resultText = '당신의 그릿 점수는 ' + gritScore + '입니다. 이는 상위 ' + percentile + '%에 해당합니다.';
+                var buttonText = '<button onclick="location.href=\'' + window.location.origin + '\'">나도 검사하기</button>';
+                showModal(resultText + buttonText, false);
+            }
+        }
+    </script>
+</body>
+</html>
