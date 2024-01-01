@@ -54,19 +54,19 @@
     <form id="limbic-test-form">
         <!-- 자극 문항 -->
         <div class="question-group" id="stimulus-questions">
-            <h2>자극 문항</h2>
+            <h2>자극 성향</h2>
             <!-- 자극 문항들이 여기에 추가됩니다. -->
         </div>
 
         <!-- 지배 문항 -->
         <div class="question-group" id="dominance-questions">
-            <h2>지배 문항</h2>
+            <h2>지배 성향</h2>
             <!-- 지배 문항들이 여기에 추가됩니다. -->
         </div>
 
         <!-- 안정 문항 -->
         <div class="question-group" id="balance-questions">
-            <h2>안정 문항</h2>
+            <h2>안정 성향</h2>
             <!-- 안정 문항들이 여기에 추가됩니다. -->
         </div>
 
@@ -201,31 +201,32 @@
                 options: {
                     scales: {
                         r: {
-                        ticks: {
-                            beginAtZero: true,
-                            stepSize: 20,
-                            max: 100,
-                            min: 0,
-                            display: true, // 눈금선의 숫자를 표시합니다.
-                            backdropColor: 'transparent', // 눈금선 뒤의 배경색을 투명하게 설정합니다.
-                            font: {
-                                size: 18, // 틱 레이블의 폰트 크기를 조정합니다.
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 20,
+                                max: 100,
+                                min: 0,
+                                display: true, // 눈금선의 숫자를 표시합니다.
+                                backdropColor: 'transparent', // 눈금선 뒤의 배경색을 투명하게 설정합니다.
+                                font: {
+                                    size: 18, // 틱 레이블의 폰트 크기를 조정합니다.
+                                }
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 72, // 포인트 레이블의 폰트 크기를 조정합니다.
+                                    weight: 'bold' // 포인트 레이블을 볼드체로 설정합니다.
+                                }
+                            },
+                            elements: {
+                                line: {
+                                    tension: 0, // 선의 곡률을 없애고 직선으로 만듭니다.
+                                }
                             }
-                        },
-                        pointLabels: {
-                            font: {
-                                size: 72, // 포인트 레이블의 폰트 크기를 조정합니다.
-                                weight: 'bold' // 포인트 레이블을 볼드체로 설정합니다.
-                            }
-                        }
-                    },
-                    elements: {
-                        line: {
-                            tension: 0 // 선의 곡률을 없애고 직선으로 만듭니다.
                         }
                     }
                 }
-            });
+            })
         }
 
     window.onload = function() {
