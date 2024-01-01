@@ -193,6 +193,7 @@
                         label: '림빅 프로필',
                         data: [stimulusPercentage, dominancePercentage, balancePercentage],
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
                     }]
                 },
@@ -201,14 +202,30 @@
                         ticks: {
                             beginAtZero: true,
                             stepSize: 20,
-                            max: 100
+                            max: 100,
+                            display: true, // 눈금선의 숫자를 표시합니다.
+                            backdropColor: 'transparent', // 눈금선 뒤의 배경색을 투명하게 설정합니다.
+                            font: {
+                                size: 12 // 틱 레이블의 폰트 크기를 조정합니다.
+                            }
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 24, // 포인트 레이블의 폰트 크기를 조정합니다.
+                                weight: 'bold' // 포인트 레이블을 볼드체로 설정합니다.
+                            }
+                        }
+                    },
+                    elements: {
+                        line: {
+                            tension: 0 // 선의 곡률을 없애고 직선으로 만듭니다.
                         }
                     }
                 }
             });
         }
 
-        window.onload = function() {
+    window.onload = function() {
             addQuestions(stimulusQuestions, 'stimulus-questions', 'stimulus');
             addQuestions(dominanceQuestions, 'dominance-questions', 'dominance');
             addQuestions(balanceQuestions, 'balance-questions', 'balance');
