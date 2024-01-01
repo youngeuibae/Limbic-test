@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>림빅 테스트</title>
-    <link rel="stylesheet" href="style.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -168,7 +168,7 @@
 
         function createLimbicChart(stimulusPercentage, dominancePercentage, balancePercentage) {
             var ctx = document.getElementById('limbicChart').getContext('2d');
-            if (window.limbicChart) {
+            if (window.limbicChart instanceof Chart) {
                 window.limbicChart.destroy(); // 이전 차트를 제거합니다.
             }
             window.limbicChart = new Chart(ctx, {
