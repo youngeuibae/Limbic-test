@@ -73,7 +73,7 @@
         <button type="button" onclick="calculateResults()">결과 보기</button>
     </form>
 
-    <canvas id="limbicChart" width="400" height="400"></canvas>
+    <canvas id="limbicChart" style="background-color: transparent;" width="400" height="400"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -204,11 +204,11 @@
                             beginAtZero: true,
                             stepSize: 20,
                             max: 100,
-                            count: 6,
+                            min: 0,
                             display: true, // 눈금선의 숫자를 표시합니다.
                             backdropColor: 'transparent', // 눈금선 뒤의 배경색을 투명하게 설정합니다.
                             font: {
-                                size: 24, // 틱 레이블의 폰트 크기를 조정합니다.
+                                size: 18, // 틱 레이블의 폰트 크기를 조정합니다.
                             }
                         },
                         pointLabels: {
